@@ -145,4 +145,5 @@ if __name__ == '__main__':
         sql = Sql()
         sql.save(t_item)
         sql.update_fields(l_item)
+        sql.close()
         time.sleep(20)
