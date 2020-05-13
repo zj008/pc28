@@ -131,7 +131,11 @@ if __name__ == '__main__':
             text = get(url)
             if not next:
                 continue
-            t, l = parseOne(text, "alg", no)
+            try:
+                t, l = parseOne(text, "alg", no)
+            except Exception as e:
+                print(e)
+                continue
             print(t, l)
             for k, v in t.items():
                 t_item[k] = v
