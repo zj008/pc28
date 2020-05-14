@@ -96,7 +96,7 @@ def parseOne(text, type, no):
             item[f"res{no}"] = tds[4].xpath(".//text()")[0]
         except Exception as e:
             print(e)
-        print(item)
+        # print(item)
         l.append(item)
     return l
 
@@ -106,7 +106,6 @@ def get_jnd():
         ret = get(url)
         parseAll(ret, "alg", no)
 
-
 def get_dd():
     # dd 历史数据
     for no, url in enumerate(dd, 9):
@@ -114,29 +113,34 @@ def get_dd():
         parseAll(ret, "alg", no)
 
 if __name__ == '__main__':
-    # get_jnd()
+    try:
+        get_jnd()
+    except:
+        pass
     while 1:
-        l_item = dict(table="lottery")
-        t_item = dict(table="lottery")
-        for no, url in enumerate(jnd, 1):
-            text = get(url)
-            if not next:
-                continue
-            try:
-                t, l = parseOne(text, "alg", no)
-            except Exception as e:
-                print(e)
-                continue
-            print(t, l)
-            for k, v in t.items():
-                t_item[k] = v
-            for k, v in l.items():
-                l_item[k] = v
-        print(l_item, t_item)
-        sql = Sql()
-        if sql.is_exists(t_item, "id"):
-            sql.update_fields(t_item)
-        else:
-            sql.save(t_item)
-        sql.update_fields(l_item)
-        time.sleep(20)
+        try:
+            l_item = dict(table="lottery")
+            t_item = dict(table="lottery")
+            for no, url in enumerate(jnd, 1):
+                text = get(url)
+                if not next:
+                    continue
+                try:
+                    t, l = parseOne(text, "alg", no)
+                except Exception as e:
+                    print(e)
+                    continue
+                # print(t, l)
+                for k, v in t.items():
+                    t_item[k] = v
+                for k, v in l.items():
+                    l_item[k] = v
+            sql = Sql()
+            if sql.is_exists(t_item, "id"):
+                sql.update_fields(t_item)
+            else:
+                sql.save(t_item)
+            sql.update_fields(l_item)
+            time.sleep(20)
+        except:
+            time.sleep(120)
