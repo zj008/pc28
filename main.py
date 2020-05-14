@@ -54,15 +54,15 @@ def parseAll(text, type, no):
         item = dict(table="lottery")
         try:
             item["id"] = tds[0].xpath("./text()")[0]
+            pre1 = tds[3].xpath("./span[1]/text()")[0]
+            pre2 = tds[3].xpath("./span[2]/text()")[0]
+            item[type + str(no) + "big"] = pre1
+            item[type + str(no) + "double"] = pre2
         except Exception as e:
             print(e)
         try:
             item["pub_time"] = datetime.datetime.now().strftime("%Y:%m:%d") + tds[1].xpath("./text()")[0]
             item["result"] = tds[2].xpath("./text()")[0]
-            pre1 = tds[3].xpath("./span[1]/text()")[0]
-            pre2 = tds[3].xpath("./span[2]/text()")[0]
-            item[type + str(no) + "big"] = pre1
-            item[type + str(no) + "double"] = pre2
             item[f"res{no}"] = tds[4].xpath(".//text()")[0]
         except Exception as e:
             print(e)
@@ -84,29 +84,21 @@ def parseOne(text, type, no):
         item = dict()
         try:
             item["id"] = tds[0].xpath("./text()")[0]
+            pre1 = tds[3].xpath("./span[1]/text()")[0]
+            pre2 = tds[3].xpath("./span[2]/text()")[0]
+            item[type + str(no) + "big"] = pre1
+            item[type + str(no) + "double"] = pre2
         except Exception as e:
             print(e)
         try:
             item["pub_time"] = datetime.datetime.now().strftime("%Y:%m:%d") + tds[1].xpath("./text()")[0]
             item["result"] = tds[2].xpath("./text()")[0]
-            pre1 = tds[3].xpath("./span[1]/text()")[0]
-            pre2 = tds[3].xpath("./span[2]/text()")[0]
-            item[type + str(no) + "big"] = pre1
-            item[type + str(no) + "double"] = pre2
             item[f"res{no}"] = tds[4].xpath(".//text()")[0]
         except Exception as e:
             print(e)
+        print(item)
         l.append(item)
     return l
-
-        # print(item)
-        # sql = Sql()
-        # if not sql.is_exists(item, "id"):
-        #     sql.save(item)
-        # else:
-        #     sql.update_fields(item)
-        # sql.close()
-
 
 def get_jnd():
     # jnd28 历史数据
@@ -122,8 +114,7 @@ def get_dd():
         parseAll(ret, "alg", no)
 
 if __name__ == '__main__':
-    get_jnd()
-
+    # get_jnd()
     while 1:
         l_item = dict(table="lottery")
         t_item = dict(table="lottery")
@@ -143,7 +134,9 @@ if __name__ == '__main__':
                 l_item[k] = v
         print(l_item, t_item)
         sql = Sql()
-        sql.save(t_item)
+        if sql.is_exists(t_item, "id"):
+            sql.update_fields(t_item)
+        else:
+            sql.save(t_item)
         sql.update_fields(l_item)
-        sql.close()
         time.sleep(20)
