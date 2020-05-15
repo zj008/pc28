@@ -169,6 +169,11 @@ def get_now_double():
 
 
 if __name__ == '__main__':
+    try:
+        get_history()
+    except Exception as e:
+        print(e)
+        pass
     while 1:
         try:
             get_now_big()
