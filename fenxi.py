@@ -150,8 +150,8 @@ def get_now_double():
             p.parse_fenxi_now(history, index, "double")
         except Exception as e:
             print(e)
-    parse_alg0big(history.get("now"), True)
-    parse_alg0big(history.get("last"))
+    parse_alg0double(history.get("now"), True)
+    parse_alg0double(history.get("last"))
     sql = Sql()
     now = history.get("now")
     now_fenxi_item = dict(table="fenxi", id=now.get("id"))
