@@ -93,7 +93,7 @@ def get_history():
 def parse_alg0double(data, is_now=False):
     c1 = 0
     for i in range(1, 8):
-        c1 += 1 if data.get("alg" + str(i) + "double") == "单" else 0
+        c1 += 1 if data.get("alg" + str(i)) == "单" else 0
     print(c1)
     alg0double = "单" if c1 >= 4 else "双"
     data["alg0"] = alg0double
@@ -105,8 +105,8 @@ def parse_alg0double(data, is_now=False):
 def parse_alg0big(data, is_now=False):
     c1 = 0
     for i in range(1, 8):
-        c1 += 1 if data.get("alg" + str(i) + "big") == "大" else 0
-    print(c1)
+        if data.get("alg" + str(i)) == "大":
+            c1 += 1
     alg0big = "大" if c1 >= 4 else "小"
     data["alg0"] = alg0big
     if not is_now:
@@ -147,7 +147,7 @@ def get_now_double():
         ret = get(url)
         p = Parser(ret)
         try:
-            p.parse_fenxi_now(history, index, "big")
+            p.parse_fenxi_now(history, index, "double")
         except Exception as e:
             print(e)
     parse_alg0big(history.get("now"), True)
