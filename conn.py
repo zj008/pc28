@@ -66,3 +66,12 @@ class Sql():
     def close(self):
         self.cursor.close()
         self.db.close()
+
+    def execute(self, sql):
+        try:
+            self.cursor.execute(sql)
+            ret = self.cursor.fetchall()
+            return ret, 0
+        except Exception as e:
+            logging.error(f"error when execute sql: {sql}, error is {e.__str__()}")
+            return None, e
