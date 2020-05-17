@@ -4,25 +4,25 @@ from conn import Sql
 import time
 
 big_url = [
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=1",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=2",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=3",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=4",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=5",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=6",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=7",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=2&i=8",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=2",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=2",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=3",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=4",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=5",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=6",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=7",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=8",
 ]
 
 double_url = [
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=1",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=2",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=3",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=4",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=5",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=6",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=7",
-    "http://www.28fenxi.com/index.php?s=pc28yc&type=3&i=8",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=1",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=2",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=3",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=4",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=5",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=6",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=7",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=3&i=8",
 ]
 
 
