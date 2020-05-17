@@ -163,9 +163,9 @@ def parse_earn_now(t, last):
         last["pet2"] = 100
         last["pet3"] = 100
     elif res0 == "错":
-        last["pet1"] = pet1 * 2 if int(pet1) < 1600 else 0
-        last["pet2"] = pet2 * 2 if int(pet2) < 3200 else 0
-        last["pet3"] = pet3 * 2 if int(pet3) < 6400 else 0
+        last["pet1"] = int(pet1) * 2 if int(pet1) < 1600 else 0
+        last["pet2"] = int(pet2) * 2 if int(pet2) < 3200 else 0
+        last["pet3"] = int(pet3) * 2 if int(pet3) < 6400 else 0
 
     if last.get("res0") == "对":
         num = res.split("=")[-1]
