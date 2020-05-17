@@ -71,8 +71,14 @@ def get_history():
         sql = Sql()
         # print(item_fenxi)
         # print(item_fenxi_big)
-        sql.save(item_fenxi)
-        sql.save(item_fenxi_big)
+        if not sql.is_exists(item_fenxi):
+            sql.save(item_fenxi)
+        else:
+            sql.update_fields(item_fenxi)
+        if not sql.is_exists(item_fenxi_big):
+            sql.save(item_fenxi_big)
+        else:
+            sql.update_fields(item_fenxi_big)
         sql.close()
 
     # 单双历史数据
@@ -86,7 +92,10 @@ def get_history():
         sql = Sql()
         # print(item_fenxi)
         # print(item_fenxi_double)
-        sql.save(item_fenxi_double)
+        if not sql.is_exists(item_fenxi_double):
+            sql.save(item_fenxi_double)
+        else:
+            sql.update_fields(item_fenxi_double)
         sql.close()
 
 
@@ -243,8 +252,8 @@ def update_earn(t):
                 item["gain3"] = item.get("pet3")
         elif r[2] == "错":
             item["gain1"] = -int(item.get("pet1"))
-            item["gain2"] = -(item.get("pet2"))
-            item["gain3"] = -(item.get("pet3"))
+            item["gain2"] = -int(item.get("pet2"))
+            item["gain3"] = -int(item.get("pet3"))
         p = r[2]
         datas.append(item)
     sql = Sql()
