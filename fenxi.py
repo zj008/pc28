@@ -145,9 +145,9 @@ def get_now_big():
     last = history.get("last")
     parse_earn_now("big", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
-    sql.update_fields(last_fenxi_item)
+    sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_big"
-    sql.update_fields(last)
+    sql.save_or_update(last)
     sql.close()
 
 
@@ -205,17 +205,15 @@ def get_now_double():
     now = history.get("now")
     now_fenxi_item = dict(table="fenxi", id=now.get("id"))
     now["table"] = "fenxi_double"
-    if not sql.is_exists(now):
-        sql.save(now)
-    if not sql.is_exists(now_fenxi_item):
-        sql.save(now_fenxi_item)
+    sql.save_or_update(now)
+    sql.save_or_update(now_fenxi_item)
     last = history.get("last")
     # print(last)
     parse_earn_now("double", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
-    sql.update_fields(last_fenxi_item)
+    sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
-    sql.update_fields(last)
+    sql.save_or_update(last)
     sql.close()
 
 
@@ -287,15 +285,15 @@ if __name__ == '__main__':
         update_earn("double")
     except:
         pass
-    # while 1:
-    #     try:
-    #         get_now_big()
-    #         get_now_double()
-    #     except Exception as e:
-    #         get_history()
-    #         update_earn("big")
-    #         update_earn("double")
-    #         print(e)
-    #         continue
-    #     print("----------")
-    #     time.sleep(20)
+    while 1:
+        try:
+            get_now_big()
+            get_now_double()
+        except Exception as e:
+            get_history()
+            update_earn("big")
+            update_earn("double")
+            print(e)
+            continue
+        print("----------")
+        time.sleep(20)

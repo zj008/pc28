@@ -50,6 +50,12 @@ class Sql():
             return 1
         return 0
 
+    def save_or_update(self, data):
+        if not self.is_exists(data):
+            self.save(data)
+        else:
+            self.update_fields(data)
+
     def update_fields(self, data):
         table = data.pop("table")
         id = data.pop("id")
