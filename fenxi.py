@@ -149,7 +149,7 @@ def get_now_big():
     if not sql.is_exists(now_fenxi_item):
         sql.save(now_fenxi_item)
     last = history.get("last")
-    loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
     parse_earn_now("big", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
@@ -220,7 +220,7 @@ def get_now_double():
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
-    loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
     sql.save_or_update(last)
     sql.close()
 
@@ -310,6 +310,6 @@ if __name__ == '__main__':
             print(e)
             update()
             continue
-        loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
+        loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
         time.sleep(20)
 
