@@ -287,15 +287,15 @@ if __name__ == '__main__':
         update_earn("double")
     except:
         pass
-    while 1:
-        try:
-            get_now_big()
-            get_now_double()
-        except Exception as e:
-            get_history()
-            update_earn("big")
-            update_earn("double")
-            print(e)
-            continue
-        print("----------")
-        time.sleep(20)
+    # while 1:
+    #     try:
+    #         get_now_big()
+    #         get_now_double()
+    #     except Exception as e:
+    #         get_history()
+    #         update_earn("big")
+    #         update_earn("double")
+    #         print(e)
+    #         continue
+    #     print("----------")
+    #     time.sleep(20)
