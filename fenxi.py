@@ -164,7 +164,7 @@ def parse_earn_now(t, last):
         f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
     res0, pet1, pet2, pet3, pet4 = ret[0][0]
-    if pet1 == None:
+    if pet1 == None or pet2 == None or pet3 == None or pet4 == None:
         pet1, pet2, pet3, pet4 = 0, 0, 0, 0
     res = last.get("result")
     if res0 == "对":
