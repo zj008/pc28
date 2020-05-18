@@ -157,6 +157,8 @@ def parse_earn_now(t, last):
         f"select res0, pet1, pet2, pet3 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
     res0, pet1, pet2, pet3 = ret[0][0]
+    if not pet1:
+        pet1, pet2, pet3 = 0, 0, 0
     res = last.get("result")
     if res0 == "对":
         last["pet1"] = 100
@@ -178,9 +180,10 @@ def parse_earn_now(t, last):
             last["gain2"] = last["pet2"]
             last["gain3"] = last["pet3"]
     elif last.get("res0") == "错":
-        last["gain1"] = -int(pet1)
-        last["gain2"] = -int(pet2)
-        last["gain3"] = -int(pet3)
+        last["gain1"] = -int(last["pet1"])
+        last["gain2"] = -int(last["pet2"])
+        last["gain3"] = -int(last["pet3"])
+
 
 def get_now_double():
     history = dict()
