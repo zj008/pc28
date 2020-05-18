@@ -280,6 +280,15 @@ def update_earn(t):
     sql.close()
 
 
+def update():
+    try:
+        get_history()
+        update_earn("big")
+        update_earn("double")
+    except:
+        pass
+
+
 if __name__ == '__main__':
     try:
         get_history()
@@ -298,10 +307,8 @@ if __name__ == '__main__':
             get_now_big()
             get_now_double()
         except Exception as e:
-            get_history()
-            update_earn("big")
-            update_earn("double")
             print(e)
+            update()
             continue
         loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
         time.sleep(20)
