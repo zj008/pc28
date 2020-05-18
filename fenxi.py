@@ -283,6 +283,7 @@ if __name__ == '__main__':
             get_now_big()
             get_now_double()
         except Exception as e:
+            get_history()
             update_earn("big")
             update_earn("double")
             print(e)
