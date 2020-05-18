@@ -4,7 +4,7 @@ from conn import Sql
 import time
 
 big_url = [
-    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=2",
+    "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=1",
     "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=2",
     "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=3",
     "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=4",
@@ -71,14 +71,10 @@ def get_history():
         sql = Sql()
         # print(item_fenxi)
         # print(item_fenxi_big)
-        if not sql.is_exists(item_fenxi):
-            sql.save(item_fenxi)
-        else:
-            sql.update_fields(item_fenxi)
-        if not sql.is_exists(item_fenxi_big):
-            sql.save(item_fenxi_big)
-        else:
-            sql.update_fields(item_fenxi_big)
+        print("fenxi", item_fenxi)
+        print("big", item_fenxi_big)
+        sql.save_or_update(item_fenxi)
+        sql.save_or_update(item_fenxi_big)
         sql.close()
 
     # 单双历史数据
@@ -92,10 +88,9 @@ def get_history():
         sql = Sql()
         # print(item_fenxi)
         # print(item_fenxi_double)
-        if not sql.is_exists(item_fenxi_double):
-            sql.save(item_fenxi_double)
-        else:
-            sql.update_fields(item_fenxi_double)
+        print(item_fenxi_double)
+
+        sql.save_or_update(item_fenxi_double)
         sql.close()
 
 
@@ -213,6 +208,8 @@ def get_now_double():
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
+    print(now)
+    print(last)
     sql.save_or_update(last)
     sql.close()
 
@@ -297,3 +294,4 @@ if __name__ == '__main__':
             continue
         print("----------")
         time.sleep(20)
+
