@@ -2,6 +2,11 @@ from lib.get import get
 from lib.parse import Parser
 from conn import Sql
 import time
+import logging
+import datetime
+import json
+
+loger = logging.getLogger(__name__)
 
 big_url = [
     "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=1",
@@ -138,6 +143,7 @@ def get_now_big():
     if not sql.is_exists(now_fenxi_item):
         sql.save(now_fenxi_item)
     last = history.get("last")
+    loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
     parse_earn_now("big", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
@@ -208,8 +214,7 @@ def get_now_double():
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
-    print(now)
-    print(last)
+    loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
     sql.save_or_update(last)
     sql.close()
 
@@ -292,6 +297,6 @@ if __name__ == '__main__':
             update_earn("double")
             print(e)
             continue
-        print("----------")
+        loger.info(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
         time.sleep(20)
 
