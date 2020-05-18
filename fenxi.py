@@ -154,20 +154,22 @@ def get_now_big():
 def parse_earn_now(t, last):
     sql = Sql()
     ret = sql.execute(
-        f"select res0, pet1, pet2, pet3 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
+        f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
-    res0, pet1, pet2, pet3 = ret[0][0]
+    res0, pet1, pet2, pet3, pet4 = ret[0][0]
     if not pet1:
-        pet1, pet2, pet3 = 0, 0, 0
+        pet1, pet2, pet3, pet4 = 0, 0, 0, 0
     res = last.get("result")
     if res0 == "对":
         last["pet1"] = 100
         last["pet2"] = 100
         last["pet3"] = 100
+        last["pet4"] = 100
     elif res0 == "错":
-        last["pet1"] = int(pet1) * 2 if int(pet1) < 1600 else 0
-        last["pet2"] = int(pet2) * 2 if int(pet2) < 3200 else 0
-        last["pet3"] = int(pet3) * 2 if int(pet3) < 6400 else 0
+        last["pet1"] = int(pet1) * 2 if int(pet1) < 800 else 0
+        last["pet2"] = int(pet2) * 2 if int(pet2) < 1600 else 0
+        last["pet3"] = int(pet3) * 2 if int(pet3) < 3200 else 0
+        last["pet4"] = int(pet4) * 2 if int(pet4) < 6400 else 0
 
     if last.get("res0") == "对":
         num = res.split("=")[-1]
@@ -175,14 +177,17 @@ def parse_earn_now(t, last):
             last["gain1"] = last["pet1"] * 0.6
             last["gain2"] = last["pet2"] * 0.6
             last["gain3"] = last["pet3"] * 0.6
+            last["gain4"] = last["pet4"] * 0.6
         else:
             last["gain1"] = last["pet1"]
             last["gain2"] = last["pet2"]
             last["gain3"] = last["pet3"]
+            last["gain4"] = last["pet4"]
     elif last.get("res0") == "错":
         last["gain1"] = -int(last["pet1"])
         last["gain2"] = -int(last["pet2"])
         last["gain3"] = -int(last["pet3"])
+        last["gain4"] = -int(last["pet4"])
 
 
 def get_now_double():
@@ -234,29 +239,33 @@ def update_earn(t):
         num = r[1].split("=")[-1]
 
         if i == 0:
-            last = dict(res0="对", pet1=100, pet2=100, pet3=100)
+            last = dict(res0="对", pet1=100, pet2=100, pet3=100, pet4=100)
         else:
             last = datas[-1]
         item = dict(table=f"fenxi_{t}", id=r[0])
         if p == "对":
-            item["pet1"], item["pet2"], item["pet3"] = 100, 100, 100
+            item["pet1"], item["pet2"], item["pet3"], item["pet4"] = 100, 100, 100, 100
         elif p == "错":
-            item["pet1"] = last.get("pet1") * 2 if last.get("pet1") < 1600 else 0
-            item["pet2"] = last.get("pet2") * 2 if last.get("pet2") < 3200 else 0
-            item["pet3"] = last.get("pet3") * 2 if last.get("pet3") < 6400 else 0
+            item["pet1"] = last.get("pet1") * 2 if last.get("pet1") < 800 else 0
+            item["pet2"] = last.get("pet2") * 2 if last.get("pet2") < 1600 else 0
+            item["pet3"] = last.get("pet3") * 2 if last.get("pet3") < 3200 else 0
+            item["pet4"] = last.get("pet4") * 2 if last.get("pet4") < 6400 else 0
         if r[2] == "对":
             if num.strip() == "13" or num.strip() == "14":
                 item["gain1"] = item.get("pet1") * 0.6
                 item["gain2"] = item.get("pet2") * 0.6
                 item["gain3"] = item.get("pet3") * 0.6
+                item["gain4"] = item.get("pet4") * 0.6
             else:
                 item["gain1"] = item.get("pet1")
                 item["gain2"] = item.get("pet2")
                 item["gain3"] = item.get("pet3")
+                item["gain4"] = item.get("pet4")
         elif r[2] == "错":
             item["gain1"] = -int(item.get("pet1"))
             item["gain2"] = -int(item.get("pet2"))
             item["gain3"] = -int(item.get("pet3"))
+            item["gain4"] = -int(item.get("pet4"))
         p = r[2]
         datas.append(item)
     sql = Sql()
