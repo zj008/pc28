@@ -35,6 +35,8 @@ double_url = [
 def get_big(history):
     for index, url in enumerate(big_url, 1):
         ret = get(url)
+        if not ret:
+            return
         p = Parser(ret)
         p.parse_fenxi(history, index)
     for id in history.keys():
@@ -51,6 +53,8 @@ def get_big(history):
 def get_double(history):
     for index, url in enumerate(double_url, 1):
         ret = get(url)
+        if not ret:
+            return
         p = Parser(ret)
         p.parse_fenxi(history, index)
     for id in history.keys():
@@ -127,6 +131,8 @@ def get_now_big():
     history = dict()
     for index, url in enumerate(big_url, 1):
         ret = get(url)
+        if not ret:
+            return
         p = Parser(ret)
         try:
             p.parse_fenxi_now(history, index, "big")

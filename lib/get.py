@@ -13,7 +13,7 @@ ua = [
 
 def get(url, t=1):
     if t > 3:
-        return ""
+        return None
     try:
         ret = requests.get(
             url=url,
