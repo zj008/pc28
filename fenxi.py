@@ -283,8 +283,9 @@ if __name__ == '__main__':
             get_now_big()
             get_now_double()
         except Exception as e:
+            update_earn("big")
+            update_earn("double")
             print(e)
-            time.sleep(20)
             continue
         print("----------")
         time.sleep(20)
