@@ -149,11 +149,11 @@ def get_now_big():
     if not sql.is_exists(now_fenxi_item):
         sql.save(now_fenxi_item)
     last = history.get("last")
-    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
     parse_earn_now("big", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_big"
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "; fenxi_now:" + json.dumps(last))
     sql.save_or_update(last)
     sql.close()
 
@@ -215,13 +215,11 @@ def get_now_double():
     sql.save_or_update(now)
     sql.save_or_update(now_fenxi_item)
     last = history.get("last")
-
-    print(last)
     parse_earn_now("double", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
-    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + json.dumps(last))
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "  double_now: " + json.dumps(last))
     sql.save_or_update(last)
     sql.close()
 
