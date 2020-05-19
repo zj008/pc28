@@ -153,7 +153,7 @@ def get_now_big():
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_big"
-    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "; fenxi_now:" + json.dumps(last))
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "; fenxi_now:" + json.dumps(last, ensure_ascii=False))
     sql.save_or_update(last)
     sql.close()
 
@@ -219,7 +219,7 @@ def get_now_double():
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
     last["table"] = "fenxi_double"
-    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "  double_now: " + json.dumps(last))
+    loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "  double_now: " + json.dumps(last,ensure_ascii=False))
     sql.save_or_update(last)
     sql.close()
 
