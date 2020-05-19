@@ -291,29 +291,26 @@ def update():
 
 
 if __name__ == '__main__':
+    try:
+        get_history()
+    except Exception as e:
+        print(e)
+    try:
+        update_earn("big")
+    except:
+        pass
+    try:
+        update_earn("double")
+    except:
+        pass
     while 1:
-        get_now_double()
-        time.sleep(5)
-    # try:
-    #     get_history()
-    # except Exception as e:
-    #     print(e)
-    # try:
-    #     update_earn("big")
-    # except:
-    #     pass
-    # try:
-    #     update_earn("double")
-    # except:
-    #     pass
-    # while 1:
-    #     try:
-    #         get_now_big()
-    #         get_now_double()
-    #     except Exception as e:
-    #         print(e)
-    #         update()
-    #         continue
-    #     loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
-    #     time.sleep(20)
+        try:
+            get_now_big()
+            get_now_double()
+        except Exception as e:
+            print(e)
+            update()
+            continue
+        loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
+        time.sleep(20)
 
