@@ -164,7 +164,7 @@ def parse_earn_now(t, last):
         f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
     res0, pet1, pet2, pet3, pet4 = ret[0][0]
-    if pet1 == None or pet2 == None or pet3 == None or pet4 == None:
+    if pet1 is None or pet2 is None or pet3 is None or pet4 is None:
         pet1, pet2, pet3, pet4 = 100, 100, 100, 100
     res = last.get("result")
     if res0 == "对":
@@ -205,7 +205,7 @@ def get_now_double():
         try:
             p.parse_fenxi_now(history, index, "double")
         except Exception as e:
-            print(e)
+            loger.error(e)
     parse_alg0double(history.get("now"), True)
     parse_alg0double(history.get("last"))
     sql = Sql()

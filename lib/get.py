@@ -14,6 +14,8 @@ ua = [
 def get(url, t=1):
     if t > 3:
         return None
+    s = requests.Session()
+    s.keep_alive = False
     try:
         ret = requests.get(
             url=url,
@@ -23,6 +25,7 @@ def get(url, t=1):
             },
             verify=False,
             timeout=10,
+
         )
     except ReadTimeout:
         return get(url, t+1)
