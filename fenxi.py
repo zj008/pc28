@@ -165,7 +165,7 @@ def parse_earn_now(t, last):
     sql.close()
     res0, pet1, pet2, pet3, pet4 = ret[0][0]
     if pet1 == None or pet2 == None or pet3 == None or pet4 == None:
-        pet1, pet2, pet3, pet4 = 0, 0, 0, 0
+        pet1, pet2, pet3, pet4 = 100, 100, 100, 100
     res = last.get("result")
     if res0 == "对":
         last["pet1"] = 100
@@ -215,7 +215,8 @@ def get_now_double():
     sql.save_or_update(now)
     sql.save_or_update(now_fenxi_item)
     last = history.get("last")
-    # print(last)
+
+    print(last)
     parse_earn_now("double", last)
     last_fenxi_item = dict(table="fenxi", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     sql.save_or_update(last_fenxi_item)
@@ -290,26 +291,29 @@ def update():
 
 
 if __name__ == '__main__':
-    try:
-        get_history()
-    except Exception as e:
-        print(e)
-    try:
-        update_earn("big")
-    except:
-        pass
-    try:
-        update_earn("double")
-    except:
-        pass
     while 1:
-        try:
-            get_now_big()
-            get_now_double()
-        except Exception as e:
-            print(e)
-            update()
-            continue
-        loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
-        time.sleep(20)
+        get_now_double()
+        time.sleep(5)
+    # try:
+    #     get_history()
+    # except Exception as e:
+    #     print(e)
+    # try:
+    #     update_earn("big")
+    # except:
+    #     pass
+    # try:
+    #     update_earn("double")
+    # except:
+    #     pass
+    # while 1:
+    #     try:
+    #         get_now_big()
+    #         get_now_double()
+    #     except Exception as e:
+    #         print(e)
+    #         update()
+    #         continue
+    #     loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
+    #     time.sleep(20)
 
