@@ -295,18 +295,18 @@ def update():
 
 
 if __name__ == '__main__':
-    # try:
-    #     get_history()
-    # except Exception as e:
-    #     print(e)
-    # try:
-    #     update_earn("big")
-    # except:
-    #     pass
-    # try:
-    #     update_earn("double")
-    # except:
-    #     pass
+    try:
+        get_history()
+    except Exception as e:
+        print(e)
+    try:
+        update_earn("big")
+    except:
+        pass
+    try:
+        update_earn("double")
+    except:
+        pass
     while 1:
         try:
             get_now_big()
