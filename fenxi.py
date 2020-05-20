@@ -5,8 +5,20 @@ import time
 import logging
 import datetime
 import json
+from functools import wraps
 
 loger = logging.getLogger(__name__)
+
+def logit(s='out.log'):
+    def logging_decorator(func):
+        @wraps(func)
+        def wrapped_function(*args, **kwargs):
+            loger.error( "start : " + s)
+            func(*args, **kwargs)
+            loger.error("end : ", s)
+        return wrapped_function
+    return logging_decorator
+
 
 big_url = [
     "http://www.28fenxi.com/index.php?s=jnd28yc&type=2&i=1",
@@ -68,6 +80,7 @@ def get_double(history):
         history[id]["res0"] = "对" if alg0double == res else "错"
 
 
+@logit("get history")
 def get_history():
     # 大小历史数据
     history = dict()
@@ -127,6 +140,7 @@ def parse_alg0big(data, is_now=False):
         data["res0"] = "对" if alg0big == res else "错"
 
 
+@logit("get now big")
 def get_now_big():
     history = dict()
     for index, url in enumerate(big_url, 1):
@@ -203,6 +217,7 @@ def parse_earn_now(t, last):
         last["gain4"] = -int(last["pet4"])
 
 
+@logit("get now double")
 def get_now_double():
     history = dict()
     for index, url in enumerate(double_url, 1):
@@ -294,16 +309,23 @@ def update():
         pass
 
 
+def warp(f, s):
+    loger.error("start " + s)
+    f()
+    loger.error("end " + s)
+
 if __name__ == '__main__':
     try:
         get_history()
     except Exception as e:
         print(e)
     try:
+        loger.error("update earn big")
         update_earn("big")
     except:
         pass
     try:
+        loger.error("update earn double")
         update_earn("double")
     except:
         pass
