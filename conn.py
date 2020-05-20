@@ -45,7 +45,7 @@ class Sql():
         self.cursor.execute(sql)
         ret = self.cursor.fetchone()
         if ret:
-            print("ret", ret)
+            # print("ret", ret)
             # logging.error(field + ": " + str(item.get(field)) + field + " exists in " + table)
             return 1
         return 0

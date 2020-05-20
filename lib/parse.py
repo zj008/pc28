@@ -25,6 +25,7 @@ class Parser():
                 logging.error(e)
                 continue
 
+
     def parse_fenxi_now(self, history, index, t):
         trs = self.html.xpath("//tbody/tr")
         tr = trs[0]

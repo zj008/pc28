@@ -164,6 +164,12 @@ def parse_earn_now(t, last):
         f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
     res0, pet1, pet2, pet3, pet4 = ret[0][0]
+    print(ret)
+    print(res0)
+    print(pet1)
+    print(pet2)
+    print(pet3)
+    print(pet4)
     if pet1 is None or pet2 is None or pet3 is None or pet4 is None:
         pet1, pet2, pet3, pet4 = 100, 100, 100, 100
     res = last.get("result")
@@ -311,4 +317,3 @@ if __name__ == '__main__':
             continue
         loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
         time.sleep(20)
-
