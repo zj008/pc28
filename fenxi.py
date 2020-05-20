@@ -15,7 +15,7 @@ def logit(s='out.log'):
         def wrapped_function(*args, **kwargs):
             loger.error( "start : " + s)
             func(*args, **kwargs)
-            loger.error("end : ", s)
+            loger.error("end : " + s)
         return wrapped_function
     return logging_decorator
 
@@ -308,11 +308,6 @@ def update():
     except:
         pass
 
-
-def warp(f, s):
-    loger.error("start " + s)
-    f()
-    loger.error("end " + s)
 
 if __name__ == '__main__':
     try:
