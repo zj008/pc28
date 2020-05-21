@@ -174,41 +174,10 @@ def get_now_big():
 
 def parse_earn_now(t, last):
     sql = Sql()
-    ret = sql.execute(
+    ret, _ = sql.execute(
         f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
-    res0, pet1, pet2, pet3, pet4 = ret[0][0]
-    if pet1 is None or pet2 is None or pet3 is None or pet4 is None:
-        pet1, pet2, pet3, pet4 = 100, 100, 100, 100
-    res = last.get("result")
-    if res0 == "对":
-        last["pet1"] = 100
-        last["pet2"] = 100
-        last["pet3"] = 100
-        last["pet4"] = 100
-    elif res0 == "错":
-        last["pet1"] = int(pet1) * 2 if int(pet1) < 800 else 0
-        last["pet2"] = int(pet2) * 2 if int(pet2) < 1600 else 0
-        last["pet3"] = int(pet3) * 2 if int(pet3) < 3200 else 0
-        last["pet4"] = int(pet4) * 2 if int(pet4) < 6400 else 0
-
-    if last.get("res0") == "对":
-        num = res.split("=")[-1]
-        if num.strip() == "13" or num.strip() == "14":
-            last["gain1"] = last["pet1"] * 0.6
-            last["gain2"] = last["pet2"] * 0.6
-            last["gain3"] = last["pet3"] * 0.6
-            last["gain4"] = last["pet4"] * 0.6
-        else:
-            last["gain1"] = last["pet1"]
-            last["gain2"] = last["pet2"]
-            last["gain3"] = last["pet3"]
-            last["gain4"] = last["pet4"]
-    elif last.get("res0") == "错":
-        last["gain1"] = -int(last["pet1"])
-        last["gain2"] = -int(last["pet2"])
-        last["gain3"] = -int(last["pet3"])
-        last["gain4"] = -int(last["pet4"])
+    Parser.parse_earn(last, ret)
 
 
 @logit("get now double")
