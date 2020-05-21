@@ -178,12 +178,6 @@ def parse_earn_now(t, last):
         f"select res0, pet1, pet2, pet3, pet4 from fenxi_{t} where id = (select id from fenxi_{t} where id < {last.get('id')} order by id desc limit 1)")
     sql.close()
     res0, pet1, pet2, pet3, pet4 = ret[0][0]
-    print(ret)
-    print(res0)
-    print(pet1)
-    print(pet2)
-    print(pet3)
-    print(pet4)
     if pet1 is None or pet2 is None or pet3 is None or pet4 is None:
         pet1, pet2, pet3, pet4 = 100, 100, 100, 100
     res = last.get("result")
@@ -302,7 +296,6 @@ def update_earn(t):
 
 def update():
     try:
-        # get_history()
         update_earn("big")
         update_earn("double")
     except:
@@ -310,27 +303,11 @@ def update():
 
 
 if __name__ == '__main__':
-    try:
-        get_history()
-    except Exception as e:
-        print(e)
-    try:
-        loger.error("update earn big")
-        update_earn("big")
-    except:
-        pass
-    try:
-        loger.error("update earn double")
-        update_earn("double")
-    except:
-        pass
     while 1:
         try:
             get_now_big()
             get_now_double()
         except Exception as e:
             print(e)
-            update()
-            continue
         loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
         time.sleep(20)
