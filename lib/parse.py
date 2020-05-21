@@ -128,10 +128,10 @@ class Parser():
                 last["pet3"] = 100
                 last["pet4"] = 100
             elif res0 == "错":
-                last["pet1"] = 2 * pet1 if pet1 < 800 else 100
-                last["pet2"] = 2 * pet2 if pet2 < 1600 else 100
-                last["pet3"] = 2 * pet3 if pet3 < 3200 else 100
-                last["pet4"] = 2 * pet4 if pet4 < 6400 else 100
+                last["pet1"] = 2 * pet1 if pet1 < 800 else 0
+                last["pet2"] = 2 * pet2 if pet2 < 1600 else 0
+                last["pet3"] = 2 * pet3 if pet3 < 3200 else 0
+                last["pet4"] = 2 * pet4 if pet4 < 6400 else 0
 
         if last.get("res0") == "对":
             if last.get("result").endswith("13") or last.get("result").endswith("14"):
