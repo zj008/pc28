@@ -1,9 +1,11 @@
 import requests
 from requests.exceptions import ReadTimeout
+from lib.get import get
 from lxml import etree
 import datetime
 from conn import Sql
 import time
+
 
 jnd = [
     "https://www.pt008.com/jnd.php?type=1&i=1",
@@ -15,36 +17,6 @@ jnd = [
     "https://www.pt008.com/jnd.php?type=1&i=7",
     "https://www.pt008.com/jnd.php?type=1&i=8",
 ]
-
-dd = [
-    "https://www.pt008.com/index.php?type=1&i=1",
-    "https://www.pt008.com/index.php?type=1&i=2",
-    "https://www.pt008.com/index.php?type=1&i=3",
-    "https://www.pt008.com/index.php?type=1&i=4",
-    "https://www.pt008.com/index.php?type=1&i=5",
-    "https://www.pt008.com/index.php?type=1&i=6",
-    "https://www.pt008.com/index.php?type=1&i=7",
-    "https://www.pt008.com/index.php?type=1&i=8",
-]
-
-
-def get(url, t=1):
-    if t > 3:
-        return
-    try:
-        ret = requests.get(
-            url=url,
-            headers={
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"},
-            verify=False,
-            timeout=10,
-        )
-    except ReadTimeout:
-        return get(url, t+1)
-    return ret.text
-
-
-
 
 def parseAll(text, type, no):
     html = etree.HTML(text)

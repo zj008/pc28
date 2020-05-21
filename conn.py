@@ -81,3 +81,9 @@ class Sql():
         except Exception as e:
             logging.error(f"error when execute sql: {sql}, error is {e.__str__()}")
             return None, e
+
+    def get_pre(self, t, id):
+        self.cursor.execute(
+            f"select res0, pet1, pet2, pet3, pet4 from {t} where id = (select id from {t} where id < {id} order by id desc limit 1)")
+        ret = self.cursor.fetchall()
+        return ret

@@ -25,7 +25,6 @@ def get(url, t=1):
             },
             verify=False,
             timeout=10,
-
         )
     except ReadTimeout:
         return get(url, t+1)
