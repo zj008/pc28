@@ -4,6 +4,7 @@ from conn import Sql
 import time
 from threading import Thread
 import logging
+import json
 
 zuhe = [
     "https://www.pt008.com/jnd.php?type=1&i=1",
@@ -82,6 +83,8 @@ def get_big(t):
     Parser.parse_earn(last, ret)
     pt = dict(table="pt", id=last.get("id"), pub_time=last.pop("pub_time"), result=last.pop("result"))
     # sql.save_or_update(pt)
+    logging.error(json.dumps(now, ensure_ascii=False))
+    logging.error(json.dumps(last, ensure_ascii=False))
     sql.save_or_update(now)
     sql.save_or_update(last)
     sql.close()
