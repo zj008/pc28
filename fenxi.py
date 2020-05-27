@@ -310,4 +310,4 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
         loger.error(datetime.datetime.now().strftime("%Y-%m-%d %X") + "next circle")
-        time.sleep(20)
+        time.sleep(5)

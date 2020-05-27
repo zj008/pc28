@@ -100,7 +100,7 @@ def target_big():
             get_big("big")
         except Exception as e:
             logging.error(e)
-        time.sleep(60)
+        time.sleep(5)
 
 def target_double():
     while 1:
@@ -108,7 +108,7 @@ def target_double():
             get_big("double")
         except Exception as e:
             logging.error(e)
-        time.sleep(60)
+        time.sleep(5)
 
 
 if __name__ == '__main__':
